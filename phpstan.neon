@@ -1,0 +1,7 @@
+parameters:
+  level: 3
+  paths:
+    - core
+    - index.php
+    - logout.php
+  inferPrivatePropertyTypeFromConstructor: true
