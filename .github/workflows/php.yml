@@ -1,0 +1,23 @@
+name: PHP CI
+
+on:
+  push:
+    branches: [ main, feature/php8-upgrade ]
+  pull_request:
+    branches: [ main, feature/php8-upgrade ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: Set up PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: '8.2'
+      - name: Install dependencies
+        run: composer install --prefer-dist --no-progress --no-suggest
+      - name: Run Rector
+        run: vendor/bin/rector process --dry-run
+      - name: Run PHPStan
+        run: vendor/bin/phpstan analyse
